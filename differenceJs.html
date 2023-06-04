@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <script type="text/javascript">
+
+            /* 아래 js문과 동일
+            $('#navigation li').live('click', function() { //addEventListener와 비슷
+                $('#navigation li').removeClass('selected');
+                $(this).addClass('selected');
+            })*/
+
+            function addEvent(target, eventType,eventHandler, useCapture) { // addEventListener IE에서도 호환가능 버전
+                if (target.addEventListener) { // W3C DOM
+                    target.addEventListener(eventType,eventHandler,useCapture?useCapture:false);
+                }
+                
+                else if (target.attachEvent) {  // IE DOM
+                    var r = target.attachEvent("on"+eventType, eventHandler);
+                }
+            }
+ 
+            //간략화 필요
+            function clickHandler(event) { // 시스템이 event 파라미터 전달
+                var nav = document.getElementById('navigation');
+                for(var i = 0; i < nav.childNodes.length; i++) {
+                    var child = nav.childNodes[i];
+                    if(child.nodeType==3)
+                        continue;
+                    child.className = ''; // 모든 요소 class 초기화
+                }
+                event.target.className = 'selected';
+            }
+  
+            addEvent(window, 'load', function(eventObj) { // 브라우저가 'load'할때 함수 실행
+                var nav = document.getElementById('navigation');
+
+                for(var i = 0; i < nav.childNodes.length; i++) {
+                    var child = nav.childNodes[i];
+                    if(child.nodeType==3) // 텍스트 노드면 continue, 원하는 건 요소 노드 (1)
+                        continue;
+                    addEvent(child, 'click', clickHandler);
+                }
+            })
+        </script>
+
+        <style type="text/css">
+            #navigation li {
+                list-style:none;
+                float:left;
+                padding:5px;
+            }
+            #navigation {
+                cursor:pointer;
+            }
+            #navigation .selected {
+                background-color:red;
+                color:white;
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="navigation">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>javascript</li>
+            <li class="selected">jQuery</li>
+            <li>PHP</li>
+            <li>mysql</li>
+        </ul>
+    </body>
+</html>

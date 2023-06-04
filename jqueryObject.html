@@ -1,0 +1,25 @@
+<ul>
+    <li>html</li>
+    <li>css</li>
+    <li>JavaScript</li>
+</ul>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script>
+
+(function($){
+    var li = $('li'); //jquery 객체
+
+    for(var i=0; i<li.length; i++){
+        console.log(li[i]); // li[i]는 dom객체
+    }
+
+    li.map(function(index,elem){ 
+        console.log(index, elem);
+        
+        // elem은 jquery 객체가 아닌 dom객체이므로 jquery 메서드 사용을 위해 $(), wrapper로 감싸줌
+        $(elem).css('color','red'); 
+    })
+})(jQuery) // 바로 실행하는 함수식 why 다른 라이브러리와 충돌 방지 - $를 jQuery로 지정 
+    
+
+</script>

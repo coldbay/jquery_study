@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>p {
+                color:blue;
+                margin:8px;
+            }
+        </style>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+    </head>
+    <body>
+        <input type="text" value="some text"/>
+        <p>
+        </p>
+
+        
+        <script>
+        // keyup - 타이핑 후 멈췄을때 발생하는 이벤트 타입
+            $("input").keyup( function () {
+                $("p").text($(this).val());
+            }).keyup(); //keyup 이벤트 트리거 발생으로 초기값 셋팅
+        </script>
+    </body>
+</html>

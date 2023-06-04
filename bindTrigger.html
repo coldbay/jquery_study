@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            function clickHandler(e){
+                alert('thank you');
+            }
+            function click2Handler(e){
+                alert('bye');
+            }
+
+            /*
+            bind, unbind (최신 버전-> on, off) - 이벤트 헨들러 등록, 삭제
+            -> live, die- 존재하지 않은 엘리먼트에 이벤트 헨들러 등록, 삭제 (ready없이 bind 기능)
+            trigger - 파라미터로 받은 이벤트 타입을 가진 헨들러들 강제로 실행
+            */
+
+            $(document).bind('ready', function(){ // ready- 렌더링 완료 후에 실행하는 이벤트 타입
+                 $('#click_me').bind('click', clickHandler);
+                 $('#click_me').bind('click', click2Handler);
+
+                 $('#remove_event').bind('click', function(e){
+                     $('#click_me').unbind('click', clickHandler);
+                 });
+
+                 $('#trigger_event').bind('click', function(e){
+                     $('#click_me').trigger('click');
+                 });
+             })
+        </script>
+    </head>
+    <body>
+        <input id="click_me" type="button" value="click me" />
+        <input id="remove_event" type="button" value="unbind" />
+        <input id="trigger_event" type="button" value="trigger" />
+    </body>
+</html>
